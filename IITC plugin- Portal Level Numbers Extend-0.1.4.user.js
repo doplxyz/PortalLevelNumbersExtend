@@ -2,8 +2,8 @@
 // @author         IITC User (Add-on logic)
 // @name           IITC plugin: Portal Level Numbers Extend
 // @category       d.org.addon
-// @version        0.1.4
-// @description    [0.1.4]【要:元プラグイン】Portal Level Numbersの機能を拡張し、表示レベル(L1-L8)を個別にON/OFFできる機能を追加します。
+// @version        0.1.5
+// @description    [0.1.5]【要:元プラグイン】Portal Level Numbersの機能を拡張し、表示レベル(L1-L8)を個別にON/OFFできる機能を追加します。
 // @id             portal-level-numbers-extend
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
 // @match          https://intel.ingress.com/*
@@ -16,7 +16,7 @@ function wrapper(plugin_info) {
 if(typeof window.plugin !== 'function') window.plugin = function() {};
 
 plugin_info.buildName = 'release';
-plugin_info.dateTimeVersion = '2026-01-25-040000';
+plugin_info.dateTimeVersion = '2026-02-11-024529';
 plugin_info.pluginId = 'portal-level-numbers-extend';
 
 // -----------------------------------------------------------------------
@@ -31,6 +31,7 @@ const KEY_CONFIG = 'plugin-portal-level-numbers-extend-config';
 
 // デフォルト設定 (L7, L8のみ有効)
 self.config = {
+  0: false,
   1: false,
   2: false,
   3: false,
@@ -127,7 +128,7 @@ self.openSettings = function() {
   html += '<table style="width:100%; text-align:center; border-collapse:collapse;">';
   html += '<tr style="border-bottom:1px solid #555;"><th>Lvl</th><th>Show</th></tr>';
 
-  for (var i = 1; i <= 8; i++) {
+  for (var i = 0; i <= 8; i++) {
     var checked = self.config[i] ? 'checked' : '';
     html += '<tr style="border-bottom:1px solid #333;">';
     html += '<td style="padding:8px;">L' + i + '</td>';
