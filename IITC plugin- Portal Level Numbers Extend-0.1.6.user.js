@@ -2,8 +2,8 @@
 // @author         IITC User (Add-on logic)
 // @name           IITC plugin: Portal Level Numbers Extend
 // @category       d.org.addon
-// @version        0.1.5
-// @description    [0.1.5]【要:元プラグイン】Portal Level Numbersの機能を拡張し、表示レベル(L1-L8)を個別にON/OFFできる機能を追加します。
+// @version        0.1.6
+// @description    [0.1.6]【要:元プラグイン】Portal Level Numbersの機能を拡張し、表示レベル(L0-L8)を個別にON/OFFできる機能を追加します。
 // @id             portal-level-numbers-extend
 // @namespace      https://github.com/IITC-CE/ingress-intel-total-conversion
 // @match          https://intel.ingress.com/*
@@ -16,7 +16,7 @@ function wrapper(plugin_info) {
 if(typeof window.plugin !== 'function') window.plugin = function() {};
 
 plugin_info.buildName = 'release';
-plugin_info.dateTimeVersion = '2026-02-11-024529';
+plugin_info.dateTimeVersion = '2026-07-12-000000';
 plugin_info.pluginId = 'portal-level-numbers-extend';
 
 // -----------------------------------------------------------------------
@@ -47,7 +47,12 @@ self.loadSettings = function() {
   try {
     var saved = localStorage.getItem(KEY_CONFIG);
     if (saved) {
-      self.config = JSON.parse(saved);
+      var parsed = JSON.parse(saved);
+      // デフォルト値の上に保存済みの値を重ねる
+      // (旧バージョンの保存データにL0キーが無い場合でもデフォルトのfalseが維持される)
+      for (var key in parsed) {
+        self.config[key] = parsed[key];
+      }
     }
   } catch(e) {
     console.error('PLN Extend: Load Error', e);
